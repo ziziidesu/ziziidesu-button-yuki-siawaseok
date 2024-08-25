@@ -21,7 +21,7 @@ Renderを使用する場合の手順
 3.import codeを押して https://github.com/mochidukiyukimi/Yuki-Youtube-slim/ と入力  
 4.render.yamlを開いて編集(鉛筆のマーク)を押し、nameの横のyuki-youtube-slimをサイトのurlの最初の部分にしたい文字列に変更する。(yuki-yだったらurlはhttps://yuki-y.onrender.comになる)  
 5.Deploy to renderボタンを押し、Service Group Nameに適当な文字列を入れてapply(事前にrenderのアカウントを作っておく)<br>
-<p>多分偽造ページなし ブランチでデプロイされます</p>
+<p>デプロイ</p>
 <a href="https://render.com/deploy?repo=https://github.com/siawaseok3/slim-2-by-siawaseok.git&branch=偽造ページなし">
  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
