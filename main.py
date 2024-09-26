@@ -199,16 +199,66 @@ def home(response: Response,request: Request,yuki: Union[str] = Cookie(None)):
     print(check_cokie(yuki))
     return redirect("/yuki")
 
-@app.get('/watch', response_class=HTMLResponse)
-def video(v:str,response: Response,request: Request,yuki: Union[str] = Cookie(None),proxy: Union[str] = Cookie(None)):
-    if not(check_cokie(yuki)):
-        return redirect("/")
-    response.set_cookie(key="yuki", value="True",max_age=7*24*60*60)
-    videoid = v
-    t = get_data(videoid)
-    response.set_cookie("yuki","True",max_age=60 * 60 * 24 * 7)
-    return template('video.html', {"request": request,"videoid":videoid,"videourls":t[1],"res":t[0],"description":t[2],"videotitle":t[3],"authorid":t[4],"authoricon":t[6],"author":t[5],"proxy":proxy})
+from fastapi import FastAPI, Cookie, Form, Request, Response, RedirectResponse
+from typing import Union
 
+app = FastAPI()
+
+def check_cokie(cookie_value):
+    # クッキーの値をチェックするロジック
+    return cookie_value == "True"
+
+def get_data(videoid):
+    # 動画のデータを取得する関数
+    # 仮のデータを返します。
+    return ["720p", ["url1", "url2"], "Description", "Video Title", "AuthorID", "AuthorName", "AuthorIcon"]
+
+@app.get("/", response_class=HTMLResponse)
+def home():
+    # ホーム画面では、動画IDの入力フォームを表示します。
+    return """
+    <form action="/set_video" method="post">
+        <label for="videoid">Video ID:</label>
+        <input type="text" id="videoid" name="videoid">
+        <button type="submit">Submit</button>
+    </form>
+    """
+
+@app.post("/set_video", response_class=HTMLResponse)
+def set_video(videoid: str = Form(...), response: Response = None):
+    # 動画IDをクッキーに保存し、リダイレクト
+    response = RedirectResponse(url="/watch")
+    response.set_cookie(key="videoid", value=videoid, max_age=7*24*60*60)
+    return response
+
+@app.get('/watch', response_class=HTMLResponse)
+def video(response: Response, request: Request, yuki: Union[str] = Cookie(None), proxy: Union[str] = Cookie(None), videoid: Union[str, None] = Cookie(None)):
+    if not check_cokie(yuki):
+        return redirect("/")
+    
+    # 動画IDがクッキーにない場合はエラーを返す
+    if not videoid:
+        return "Video ID is missing", 400
+
+    response.set_cookie(key="yuki", value="True", max_age=7*24*60*60)
+    
+    # 動画データを取得
+    t = get_data(videoid)
+    
+    response.set_cookie("yuki", "True", max_age=60 * 60 * 24 * 7)
+    
+    return template('video.html', {
+        "request": request,
+        "videoid": videoid,
+        "videourls": t[1],
+        "res": t[0],
+        "description": t[2],
+        "videotitle": t[3],
+        "authorid": t[4],
+        "authoricon": t[6],
+        "author": t[5],
+        "proxy": proxy
+    })
 @app.get("/search", response_class=HTMLResponse,)
 def search(q:str,response: Response,request: Request,page:Union[int,None]=1,yuki: Union[str] = Cookie(None),proxy: Union[str] = Cookie(None)):
     if not(check_cokie(yuki)):
