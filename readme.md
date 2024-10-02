@@ -92,5 +92,7 @@ fetch('https://raw.githubusercontent.com/siawaseok3/slim-2-by-siawaseok/refs/hea
 ### インビのインスタンス
 https://docs.invidious.io/instances/<br>
 https://invidious.namazso.eu/<br>
+<br>
+分からないことがあったり教えて欲しいことがあったら、<a href="https://line.me/ti/g2/vCj1dWEoRZTALbC0n1w53si3-KJ8OTXnfjV6aw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">オープンチャット</a>などでメンションして下さい！(YouTubeから来た人はコメ欄でも良いよ。)
 
 
