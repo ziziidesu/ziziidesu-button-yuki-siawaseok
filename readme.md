@@ -69,6 +69,26 @@ cookieにyuki=Trueを設定すると認証されます。
 
 <br>
 
+## バージョン機能
+
+```javascript
+fetch('https://raw.githubusercontent.com/siawaseok3/slim-2-by-siawaseok/refs/heads/main/version.txt')
+    .then(response => response.text())
+    .then(remoteVersion => {
+        remoteVersion = remoteVersion.trim();
+```
+
+ `fetch()`を使って、リモートに保存されているバージョン情報（`version.txt`ファイル）を取得します。
+
+- 現在のリポジトリのバージョンとリモートから取得したバージョンを比較します。
+    - バージョンが一致する場合は、背景色を緑色に設定します。
+    - バージョンが異なる場合は、背景色を赤色に設定します。
+- また、表示されるテキストを現在のバージョンとリモートバージョンの情報に更新します。
+
+- バージョンの取得に失敗した場合、エラーをキャッチして背景色を灰色に変更し、「バージョン取得失敗」と表示します。
+
+<br>
+
 ### インビのインスタンス
 https://docs.invidious.io/instances/<br>
 https://invidious.namazso.eu/<br>
