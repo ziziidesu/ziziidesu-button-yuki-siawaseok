@@ -54,7 +54,7 @@
                 versionElement.style.backgroundColor = "red";
             }
 
-            versionElement.textContent = `${currentVersion} (最新は　${remoteVersion})(最新ではない場合はscratchユーザーziziidesuに連絡ください)`;
+            versionElement.textContent = `${currentVersion} (最新は ${remoteVersion}、最新ではない場合はscratchユーザーziziidesuに連絡ください)`;
         })
         .catch(error => {
             console.error('Error fetching version:', error);
